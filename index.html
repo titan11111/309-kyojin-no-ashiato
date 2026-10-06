@@ -273,11 +273,6 @@ button:focus-visible{outline:2px solid var(--shoal);outline-offset:2px}
 #hGoal{white-space:normal;overflow:visible;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 @media (max-height:620px){.ab b{transform:scale(.86)}.ab button{gap:1px}}
 </style>
-    <meta property="og:title" content="巨人の足跡 火の国編">
-    <meta property="og:description" content="スマホ・PCのブラウザで遊べる無料ゲームです。インストール不要！">
-    <meta property="og:url" content="https://titan11111.github.io/309-kyojin-no-ashiato/">
-    <meta property="og:type" content="website">
-    <meta name="twitter:card" content="summary">
 </head>
 <body>
 <div id="game-shell">
@@ -870,7 +865,14 @@ async function chiefEv(){
     await say('村長','村の 三日分の ごはんじゃが……\nうそを ついた わびじゃ。\nうず潮も 沖の海流も こえられる。');
     flags.sail=1;SE.get();
     await say('','鉄鋼船を 手に入れた！\nうず潮と 沖の海流を\nこえられるようになった！');
-    save();return;
+    save();
+    /* ---- 第1章 完 ---- */
+    setBgm(null);await fadeTo(1,900);mode='black';fadeA=0;await wait(500);
+    await say('','こうして 島の戦士は\n鉄の船を 手に入れた。');
+    await say('','めざすは 西の果て、\n火の山の むこうの 巨人の里。');
+    await titleCall('','巨人の足跡','第1章 完');
+    fadeA=1;mode='map';setBgm(bgmFor());await fadeTo(0,700);toast('第2章へ つづく');
+    return;
   }
   if(flags.kq){
     if(flags.hint2){await say('村長','南の城の コレクターじゃ。\nやつに 違いない！');return}
@@ -1438,9 +1440,9 @@ function goalText(){
   if(mode==='title')return 'はじめから、または つづきから';
   return flags.clear?'足跡の なぞは とけた。北の関所の声は 次の章へ':
     flags.nushi?'山道を ぬけて 西の 巨人の里へ':
-    flags.bird?'火の怪鳥の ほのおは ふせげない。いまは 引き返す（つづきは 次の章）':
-    flags.hinokuni?'火の国の 山道（火口）を こえる':
-    flags.sail?'鉄鋼船で 西の うず潮を こえて 火の国へ':
+    flags.bird?'【第2章】火の怪鳥の ほのおは ふせげない。いまは 引き返す':
+    flags.hinokuni?'【第2章】火の国の 山道（火口）を こえる':
+    flags.sail?'【第2章】鉄鋼船で 西の うず潮を こえて 火の国へ':
     flags.keitai?'携帯を ピポパ族の 村長に とどける':
     flags.tono?'天守で コレクター殿の からくり武者に 勝つ':
     flags.hint2?'南の城の 天守で コレクターを たずねる':
@@ -1455,7 +1457,7 @@ const STEPS=[
   ['海岸で 巨大な足跡を 見た',()=>flags.foot],['王から イカダを さずかった',()=>flags.q],
   ['見知らぬ浜に 流れついた',()=>flags.teaser],['村長の 携帯さがしを 引き受けた',()=>flags.kq],
   ['雪親玉の ぬれぎぬを 知った',()=>flags.boss],['南の城の 門を 通った',()=>flags.gate],
-  ['からくり武者に 勝ち 携帯を 取り戻した',()=>flags.keitai],['ピポパ族から 鉄鋼船を もらった',()=>flags.sail],
+  ['からくり武者に 勝ち 携帯を 取り戻した',()=>flags.keitai],['ピポパ族から 鉄鋼船を もらった ― 第1章 完',()=>flags.sail],
   ['火の国に 上陸した',()=>flags.hinokuni],['火の怪鳥を しずめた',()=>flags.nushi],
   ['巨人の里に たどりついた',()=>flags.clear]
 ];
